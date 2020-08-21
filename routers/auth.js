@@ -14,8 +14,20 @@ router.get(
   }
 );
 
+router.get("/auth/logout", (req, res) => {
+  req.logOut();
+  res.redirect("/");
+});
+
 router.get("/secret", (req, res) => {
-  res.send("You have logged in");
+  if (req.isAuthenticated()) {
+    res.send(
+      //   "You have logged in, click <a href='/auth/logout'>here</a> to log out"
+      { ...req.user, logOut: "http://localhost:5000/auth/logout" }
+    );
+  } else {
+    res.redirect("/");
+  }
 });
 
 module.exports = router;
