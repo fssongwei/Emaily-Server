@@ -3,9 +3,13 @@ if (process.env.NODE_ENV !== "production") {
 }
 const express = require("express");
 const app = express();
+const passport = require("passport");
+require("./passportConfig");
 
 app.get("/", (req, res) => {
-  res.send({ msg: "hello world" });
+  res.send("<a href='http://localhost:5000/auth/google'>login</a>");
 });
+
+app.use(require("./routers/auth"));
 
 app.listen(process.env.PORT);
