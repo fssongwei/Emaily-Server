@@ -27,7 +27,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/", (req, res) => {
-  res.send({ login: "http://localhost:5000/auth/google" });
+  res.send({
+    GoogleLogin: "http://localhost:5000/auth/google",
+    FacebookLogin: "http://localhost:5000/auth/facebook",
+  });
 });
 app.use(require("./routers/auth"));
 
