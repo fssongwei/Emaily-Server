@@ -24,8 +24,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
+      domain: "emaily-david916.herokuapp.com",
       sameSite: "none",
-      secure: true,
+      secure: "true",
     },
   })
 );

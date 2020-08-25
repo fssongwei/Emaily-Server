@@ -11,8 +11,6 @@ router.get(
   "/auth/google/callback",
   passport.authenticate("google"),
   (req, res) => {
-    console.log(res);
-
     res.redirect(`${process.env.CLIENT_BASE_URL}`);
   }
 );
