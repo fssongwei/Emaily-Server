@@ -8,7 +8,7 @@ const gStrategy = new GoogleStrategy(
   {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/auth/google/callback",
+    callbackURL: process.env.GOOGLE_CALLBACK_URL,
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
@@ -33,7 +33,7 @@ const fbStrategy = new FacebookStrategy(
   {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "/auth/facebook/callback",
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL,
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
