@@ -67,11 +67,14 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // Set up proxy (only require in the servers base in China)
-var HttpsProxyAgent = require("https-proxy-agent");
-const agent = new HttpsProxyAgent(
-  process.env.HTTP_PROXY || "http://127.0.0.1:8001"
-);
-gStrategy._oauth2.setAgent(agent);
-fbStrategy._oauth2.setAgent(agent);
+if (process.env.NODE_ENV === "production") {
+  var HttpsProxyAgent = require("https-proxy-agent");
+  const agent = new HttpsProxyAgent(
+    process.env.HTTP_PROXY || "http://127.0.0.1:8001"
+  );
+  gStrategy._oauth2.setAgent(agent);
+  fbStrategy._oauth2.setAgent(agent);
+}
+
 passport.use(gStrategy);
 passport.use(fbStrategy);
