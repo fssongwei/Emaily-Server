@@ -19,18 +19,20 @@ app.use(cors({ credentials: true, origin: process.env.CLIENT_BASE_URL }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      sameSite: "none",
-      secure: "true",
-    },
-  })
-);
 
+const sessionConfig = {
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {},
+};
+
+if (process.env.NODE_ENV === "production") {
+  sessionConfig.cookie.sameSite = "none";
+  sessionConfig.cookie.secure = "true";
+}
+
+app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 
