@@ -9,9 +9,9 @@ router.get(
 
 router.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/" }),
-  function (req, res) {
-    res.redirect("/secret");
+  passport.authenticate("google"),
+  (req, res) => {
+    res.redirect(`${process.env.CLIENT_BASE_URL}`);
   }
 );
 
@@ -20,26 +20,23 @@ router.get("/auth/facebook", passport.authenticate("facebook"));
 
 router.get(
   "/auth/facebook/callback",
-  passport.authenticate("facebook", { failureRedirect: "/" }),
-  function (req, res) {
-    res.redirect("/secret");
+  passport.authenticate("facebook"),
+  (req, res) => {
+    res.redirect(`${process.env.CLIENT_BASE_URL}`);
   }
 );
 
 // Logout
 router.get("/auth/logout", (req, res) => {
   req.logOut();
-  res.redirect("/");
+  res.send({ isLogin: false });
 });
 
-router.get("/secret", (req, res) => {
+router.get("/user", (req, res) => {
   if (req.isAuthenticated()) {
-    res.send(
-      //   "You have logged in, click <a href='/auth/logout'>here</a> to log out"
-      { ...req.user, logOut: "http://localhost:5000/auth/logout" }
-    );
+    res.send({ isLogin: true, ...req.user._doc });
   } else {
-    res.redirect("/");
+    res.send({ isLogin: false });
   }
 });
 

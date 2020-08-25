@@ -3,6 +3,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const passport = require("passport");
@@ -13,6 +14,7 @@ mongoose.connect(process.env.DB_LINK, {
   useUnifiedTopology: true,
 });
 
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
@@ -33,5 +35,6 @@ app.get("/", (req, res) => {
   });
 });
 app.use(require("./routers/auth"));
+app.use(require("./routers/payment"));
 
 app.listen(process.env.PORT);

@@ -16,9 +16,10 @@ const gStrategy = new GoogleStrategy(
       if (user) {
         done(null, user);
       } else {
+        // register
         let createdUser = await User.create({
           googleUserId: profile.id,
-          googleProfile: profile,
+          profile: profile,
         });
         done(null, createdUser);
       }
@@ -36,13 +37,13 @@ const fbStrategy = new FacebookStrategy(
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
-      let user = await User.findOne({ facebookProfile: profile.id });
+      let user = await User.findOne({ facebookUserId: profile.id });
       if (user) {
         done(null, user);
       } else {
         let createdUser = await User.create({
           facebookUserId: profile.id,
-          facebookProfile: profile,
+          profile: profile,
         });
         done(null, createdUser);
       }

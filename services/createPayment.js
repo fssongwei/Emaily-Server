@@ -1,0 +1,13 @@
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
+const createPayment = async (amount, currency) => {
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: amount,
+    currency: currency,
+    // Verify your integration in this guide by including this parameter
+    metadata: { integration_check: "accept_a_payment" },
+  });
+  return paymentIntent;
+};
+
+module.exports = createPayment;
