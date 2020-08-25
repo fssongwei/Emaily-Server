@@ -14,6 +14,7 @@ mongoose.connect(process.env.DB_LINK, {
   useUnifiedTopology: true,
 });
 
+app.set("trust proxy", 1);
 app.use(cors({ credentials: true, origin: process.env.CLIENT_BASE_URL }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -24,9 +25,8 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      // domain: "emaily-david916.herokuapp.com",
       sameSite: "none",
-      // secure: "true",
+      secure: "true",
     },
   })
 );
