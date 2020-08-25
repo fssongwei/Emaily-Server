@@ -67,7 +67,7 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // Set up proxy (only require in the servers base in China)
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "development") {
   var HttpsProxyAgent = require("https-proxy-agent");
   const agent = new HttpsProxyAgent(
     process.env.HTTP_PROXY || "http://127.0.0.1:8001"
