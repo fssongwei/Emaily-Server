@@ -14,7 +14,7 @@ mongoose.connect(process.env.DB_LINK, {
   useUnifiedTopology: true,
 });
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: process.env.CLIENT_BASE_URL }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
