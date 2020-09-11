@@ -14,11 +14,11 @@ mongoose.connect(process.env.DB_LINK, {
   useUnifiedTopology: true,
 });
 
+app.use(methodOverride("_method"));
 app.set("trust proxy", 1);
 app.use(cors({ credentials: true, origin: process.env.CLIENT_BASE_URL }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(methodOverride("_method"));
 
 const sessionConfig = {
   secret: process.env.SESSION_SECRET,
@@ -44,5 +44,6 @@ app.get("/", (req, res) => {
 });
 app.use(require("./routers/auth"));
 app.use(require("./routers/payment"));
+app.use(require("./routers/product"));
 
 app.listen(process.env.PORT);

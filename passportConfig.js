@@ -19,7 +19,8 @@ const gStrategy = new GoogleStrategy(
         // register
         let createdUser = await User.create({
           googleUserId: profile.id,
-          profile: profile,
+          name: profile._json.name,
+          avatar: profile._json.picture,
         });
         done(null, createdUser);
       }
@@ -43,7 +44,7 @@ const fbStrategy = new FacebookStrategy(
       } else {
         let createdUser = await User.create({
           facebookUserId: profile.id,
-          profile: profile,
+          name: profile.displayName,
         });
         done(null, createdUser);
       }

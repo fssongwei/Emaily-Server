@@ -29,14 +29,14 @@ router.get(
 // Logout
 router.get("/auth/logout", (req, res) => {
   req.logOut();
-  res.send({ isLogin: false });
+  res.status(200).send({ msg: "Log out success!" });
 });
 
-router.get("/user", (req, res) => {
+router.get("/auth/user", (req, res) => {
   if (req.isAuthenticated()) {
-    res.send({ isLogin: true, ...req.user._doc });
+    res.status(200).send(req.user._doc);
   } else {
-    res.send({ isLogin: false });
+    res.status(401).send({ msg: "User is not login!" });
   }
 });
 
