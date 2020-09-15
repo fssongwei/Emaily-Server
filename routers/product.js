@@ -36,10 +36,7 @@ const productOwnershipCheck = async (req, res, next) => {
 router.get("/products", async (req, res) => {
   try {
     let products = {};
-    let category = req.query.category;
-    if (category && category !== "all")
-      products = await Product.find({ category: category });
-    else products = await Product.find();
+    products = await Product.find(req.query);
     res.status(200).send(products);
   } catch (error) {
     res.status(500).send(error);
@@ -74,8 +71,6 @@ router.put(
   productOwnershipCheck,
   productUpdateCheck,
   async (req, res) => {
-    console.log(req.product);
-    console.log(req.params.id);
     try {
       let oldProduct = await Product.findByIdAndUpdate(
         req.params.id,
