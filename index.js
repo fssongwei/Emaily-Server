@@ -45,5 +45,6 @@ app.get("/", (req, res) => {
 app.use(require("./routers/auth"));
 app.use(require("./routers/payment"));
 app.use(require("./routers/product"));
+app.use(require("./routers/cart"));
 
 app.listen(process.env.PORT);
