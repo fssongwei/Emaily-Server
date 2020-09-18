@@ -55,6 +55,7 @@ router.put("/cart", requireLogin, async (req, res) => {
     // get cart
     await Cart.findOneAndUpdate({ userId: req.user.id }, cart, {
       upsert: true,
+      useFindAndModify: false,
     });
     res.status(200).send(cart);
   } catch (error) {
