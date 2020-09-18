@@ -46,5 +46,6 @@ app.use(require("./routers/auth"));
 app.use(require("./routers/payment"));
 app.use(require("./routers/product"));
 app.use(require("./routers/cart"));
+app.use(require("./routers/order"));
 
 app.listen(process.env.PORT);

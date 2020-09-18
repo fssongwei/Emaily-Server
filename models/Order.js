@@ -21,6 +21,9 @@ const orderSchema = new mongoose.Schema({
   },
   amount: Number,
   status: String,
+  date: { type: Date, default: Date.now },
+  trackCode: String,
+  shipmentProvider: String,
 });
 
 module.exports = mongoose.model("Order", orderSchema);
