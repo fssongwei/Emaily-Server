@@ -10,9 +10,7 @@ const productUpdateCheck = (req, res, next) => {
     !product.price ||
     !product.quantity ||
     !product.pics ||
-    !product.category ||
-    !isNumber(product.quantity) ||
-    !isNumber(product.price)
+    !product.category
   ) {
     res.status(400).send({ msg: "Invalid product submit!" });
     return;
