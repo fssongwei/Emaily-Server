@@ -10,7 +10,9 @@ const productUpdateCheck = (req, res, next) => {
     !product.price ||
     !product.quantity ||
     !product.pics ||
-    !product.category
+    !product.category ||
+    !isNumber(product.quantity) ||
+    !isNumber(product.price)
   ) {
     res.status(400).send({ msg: "Invalid product submit!" });
     return;
@@ -36,7 +38,14 @@ const productOwnershipCheck = async (req, res, next) => {
 router.get("/products", async (req, res) => {
   try {
     let products = {};
-    products = await Product.find(req.query);
+    if (req.query.term) {
+      // fuzzy search
+      products = await Product.fuzzySearch(req.query.term);
+    } else {
+      if (req.query.term === "") products = await Product.find();
+      else products = await Product.find(req.query);
+    }
+
     res.status(200).send(products);
   } catch (error) {
     res.status(500).send(error);
